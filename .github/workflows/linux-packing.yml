@@ -55,7 +55,7 @@ jobs:
         run: |
           echo "Build Dynamic Library Jade Tools Cpu  for Linux 构建开始时间: $(date '+%Y-%m-%d %H:%M:%S %Z')"
           docker run  --rm  --name build_shared -u $(id -u):$(id -g) -v  ${{ github.workspace }}:/app  \
-                      -w /app ghcr.io/jadehh/jade_tools:1.0.2-cpu-devel-ubuntu18.04 bash -c "
+                      -w /app ghcr.io/jadehh/jade_tools:1.0.3-cpu-devel-ubuntu18.04 bash -c "
               mkdir -p build-jade-tools-cpu-linux && cd build-jade-tools-cpu-linux && \
               cmake ..  \
                 -D CMAKE_BUILD_TYPE=Release \
@@ -78,7 +78,7 @@ jobs:
         run: |
           echo "Build Dynamic Library Jade Tools CUDA10  for Linux 构建开始时间: $(date '+%Y-%m-%d %H:%M:%S %Z')"
           docker run  --rm  --name build_shared -u $(id -u):$(id -g) -v  ${{ github.workspace }}:/app  \
-                      -w /app ghcr.io/jadehh/jade_tools:1.0.2-cuda10-devel-ubuntu18.04 bash -c "
+                      -w /app ghcr.io/jadehh/jade_tools:1.0.3-cuda10-devel-ubuntu18.04 bash -c "
                 mkdir -p build-jade-tools-cuda10-linux && cd build-jade-tools-cuda10-linux && \
                 cmake ..  \
                 -D CMAKE_BUILD_TYPE=Release \
