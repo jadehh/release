@@ -94,7 +94,7 @@ jobs:
                 -D PUGIXML_DIR=/usr/include && \
                 make -j $(nproc) && make install  && rm -r ../build-jade-tools-cuda10-linux"
           echo "Build Dynamic Library Jade Tools CUDA10  for Linux 构建结束时间: $(date '+%Y-%m-%d %H:%M:%S %Z')"
-          docker rmi ghcr.io/jadehh/jade_tools:1.0.2-cuda10-devel-ubuntu18.04 
+          docker rmi ghcr.io/jadehh/jade_tools:1.0.3-cuda10-devel-ubuntu18.04 
 
       - name: Build Dynamic Library Jade Tools CUDA11  for Linux
         run: |
