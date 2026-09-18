@@ -59,7 +59,7 @@ jobs:
         shell: pwsh
         run: |
           echo "Build Dynamic Library Jade Tools Cpu for Windows 构建开始时间: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
-          docker run --rm --name build_shared -v ${PWD}:c:\app -w /app ghcr.io/jadehh/jade_tools:1.0.2-cpu-windows2022 pwsh -Command "
+          docker run --rm --name build_shared -v ${PWD}:c:\app -w /app ghcr.io/jadehh/jade_tools:1.0.3-cpu-windows2022 pwsh -Command "
             & C:\\scripts\\start-with-h-drive.cmd;
             vcpkg integrate remove;
             git config --global --add safe.directory C:/app/

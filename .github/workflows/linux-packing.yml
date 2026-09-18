@@ -72,7 +72,7 @@ jobs:
                 -D PUGIXML_DIR=/usr/include && \
               make -j $(nproc) && make install  && rm -r ../build-jade-tools-cpu-linux"
           echo "Build Dynamic Library Jade Tools Cpu  for Linux 构建结束时间: $(date '+%Y-%m-%d %H:%M:%S %Z')"
-          docker rmi ghcr.io/jadehh/jade_tools:1.0.2-cpu-devel-ubuntu18.04 
+          docker rmi ghcr.io/jadehh/jade_tools:1.0.3-cpu-devel-ubuntu18.04 
           
       - name: Build Dynamic Library Jade Tools CUDA10  for Linux
         run: |
@@ -100,7 +100,7 @@ jobs:
         run: |
           echo "Build Dynamic Library Jade Tools CUDA11  for Linux 构建开始时间: $(date '+%Y-%m-%d %H:%M:%S %Z')"
           docker run  --rm  --name build_shared -u $(id -u):$(id -g) -v  ${{ github.workspace }}:/app  \
-                      -w /app ghcr.io/jadehh/jade_tools:1.0.2-cuda11-devel-ubuntu22.04 bash -c "
+                      -w /app ghcr.io/jadehh/jade_tools:1.0.3-cuda11-devel-ubuntu22.04 bash -c "
                 mkdir -p build-jade-tools-cuda11-linux && cd build-jade-tools-cuda11-linux && \
                 cmake ..  \
                 -D CMAKE_BUILD_TYPE=Release \
@@ -116,7 +116,7 @@ jobs:
                 -D PUGIXML_DIR=/usr/include && \
                 make -j $(nproc) && make install  && rm -r ../build-jade-tools-cuda11-linux"
           echo "Build Dynamic Library Jade Tools CUDA11  for Linux 构建结束时间: $(date '+%Y-%m-%d %H:%M:%S %Z')"
-          docker rmi ghcr.io/jadehh/jade_tools:1.0.2-cuda11-devel-ubuntu22.04 
+          docker rmi ghcr.io/jadehh/jade_tools:1.0.3-cuda11-devel-ubuntu22.04 
 
       - name: Tar Jade Tools
         run: |
