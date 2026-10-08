@@ -33,7 +33,7 @@ jobs:
         run: |
           echo "Build Dynamic Library Inference CUDA10  for Linux 构建开始时间: $(date '+%Y-%m-%d %H:%M:%S %Z')"
           docker run  --rm  --name build_shared -u $(id -u):$(id -g) -v  ${{ github.workspace }}:/app  \
-                      -w /app ghcr.io/jadehh/inference:1.0.3-cuda10-devel-ubuntu18.04 bash -c "
+                      -w /app ghcr.io/jadehh/inference:1.0.0-cuda10-devel-ubuntu18.04 bash -c "
             mkdir -p build-inference-cuda10-linux && cd build-inference-cuda10-linux && \
             cmake ..  \
               -D CMAKE_BUILD_TYPE=Release \
@@ -45,14 +45,14 @@ jobs:
               -D CUDA_ARCH_BIN='61;75' && \
             make -j $(nproc) && make install  && rm -r ../build-inference-cuda10-linux"
           echo "Build Dynamic Library Inference CUDA10  for Linux 构建结束时间: $(date '+%Y-%m-%d %H:%M:%S %Z')"
-          docker rmi ghcr.io/jadehh/inference:1.0.3-cuda10-devel-ubuntu18.04
+          docker rmi ghcr.io/jadehh/inference:1.0.0-cuda10-devel-ubuntu18.04
 
 
       - name: Build Dynamic Library Inference CUDA11  for Linux
         run: |
           echo "Build Dynamic Library Inference CUDA11  for Linux 构建开始时间: $(date '+%Y-%m-%d %H:%M:%S %Z')"
           docker run  --rm  --name build_shared -u $(id -u):$(id -g) -v  ${{ github.workspace }}:/app  \
-                      -w /app ghcr.io/jadehh/inference:1.0.3-cuda11-devel-ubuntu22.04 bash -c "
+                      -w /app ghcr.io/jadehh/inference:1.0.0-cuda11-devel-ubuntu22.04 bash -c "
             mkdir -p build-inference-cuda11-linux && cd build-inference-cuda11-linux && \
             cmake ..  \
               -D CMAKE_BUILD_TYPE=Release \
@@ -109,7 +109,7 @@ jobs:
           ]
           }
           JSONEOF
-          
+
 
       - name: Upload Linux Release Assets
         uses: softprops/action-gh-release@v1

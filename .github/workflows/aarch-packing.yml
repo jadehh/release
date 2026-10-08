@@ -28,7 +28,7 @@ jobs:
           # 提取仓库名称（去掉 -v 及后面的版本号）
           repo_name=$(echo "${tag}" | sed 's/-v[0-9].*//')
           echo "repo_name=${repo_name}" >> $GITHUB_OUTPUT
-          
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
@@ -36,7 +36,7 @@ jobs:
         run: |
           echo "Build Dynamic Library Inference CANN6  for AARCH64 构建开始时间: $(date '+%Y-%m-%d %H:%M:%S %Z')"
           docker run  --rm --platform linux/arm64  --name build_shared -u $(id -u):$(id -g) -v  ${{ github.workspace }}:/app  \
-                      -w /app ghcr.io/jadehh/inference:1.0.4-cann6-devel-ubuntu20.04 bash -c "
+                      -w /app ghcr.io/jadehh/inference:1.0.2-cann6-devel-ubuntu20.04 bash -c "
                  mkdir -p build-inference-cann6-aarch64 && cd build-inference-cann6-aarch64 && \
                  cmake ..  \
                     -D CMAKE_BUILD_TYPE=Release \
@@ -47,7 +47,7 @@ jobs:
                     -D NNRT_DIR=/usr/local/Ascend/ascend-toolkit/latest/ && \
                 make -j $(nproc) && make install  && rm -r ../build-inference-cann6-aarch64"
           echo "Build Dynamic Library Inference CANN6  for AARCH64 构建结束时间: $(date '+%Y-%m-%d %H:%M:%S %Z')"
-          
+
 
       - name: Tar Inference
         run: |
@@ -55,7 +55,7 @@ jobs:
           tar -czvf ${{ steps.get_version.outputs.tag_name }}-cann6-aarch64.tar.gz -C inference-cann6-aarch64 .
           tar -czvf ${{ steps.get_version.outputs.tag_name }}-runtime-cann6-aarch64.tar.gz -C inference-cann6-aarch64/lib .
           md5sum ${{ steps.get_version.outputs.tag_name }}-runtime-cann6-aarch64.tar.gz > ${{ steps.get_version.outputs.tag_name }}-runtime-cann6-aarch64.tar.gz.md5
-          
+
 
       - name: Generate Linux Download Information
         run: |
