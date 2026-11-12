@@ -9,15 +9,17 @@ jobs:
     env:
       TZ: 'Asia/Shanghai'
     steps:
-      - name: Nuke VS
+      - name: Remove VS (fast, no MSI uninstall)
         shell: pwsh
+        timeout-minutes: 5
         run: |
-          $ic = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\InstallCleanup.exe"
-          if (Test-Path $ic) {
-            & $ic -f
-          }
+          # 只删 VS 主目录，不卸 MSI
+          Remove-Item "C:\Program Files\Microsoft Visual Studio" -Recurse -Force -ErrorAction SilentlyContinue
+          Remove-Item "C:\Program Files (x86)\Microsoft Visual Studio" -Recurse -Force -ErrorAction SilentlyContinue
+          Remove-Item "C:\ProgramData\Microsoft\VisualStudio" -Recurse -Force -ErrorAction SilentlyContinue
           Remove-Item "C:\ProgramData\Package Cache\*" -Recurse -Force -ErrorAction SilentlyContinue
-        timeout-minutes: 10
+          dotnet nuget locals all --clear
+          Get-PSDrive C | Select-Object @{n='GB_Free';e={[math]::Round($_.Free/1gb,2)}}
 
       - name: Clone Repository
         uses: actions/checkout@v3
