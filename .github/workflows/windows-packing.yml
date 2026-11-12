@@ -9,6 +9,16 @@ jobs:
     env:
       TZ: 'Asia/Shanghai'
     steps:
+      - name: Nuke VS
+        shell: pwsh
+        run: |
+          $ic = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\InstallCleanup.exe"
+          if (Test-Path $ic) {
+            & $ic -f
+          }
+          Remove-Item "C:\ProgramData\Package Cache\*" -Recurse -Force -ErrorAction SilentlyContinue
+        timeout-minutes: 10
+
       - name: Clone Repository
         uses: actions/checkout@v3
         with:
